@@ -1,20 +1,35 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
+import Images from "../config/Data";
+import { Fade } from "react-awesome-reveal";
 
 const CardCourse = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(Images);
+  }, []);
+
   return (
-    <div className="container">
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-        <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-        </Card.Body>
-      </Card>
+    <div className="container mt-5 mb-5">
+      <div className="row">
+        {data.map((item, index) => {
+          return (
+            <div key={index} className="col-md-4 mb-3">
+              <Fade delay={index * 100}>
+                <Card>
+                  <Card.Img variant="top" src={item.url} />
+                  <Card.Body>
+                    <Card.Title>{item.courseName}</Card.Title>
+                    <Card.Text>{item.description}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Fade>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
