@@ -33,6 +33,13 @@ rfc
 rfce
 rafce
 
+buat route > buat component > buat page > buat layout
+
+Tampilkan data dari reqres.in :
+https://reqres.in/
+
+https://reqres.in/api/users
+
 
 
 

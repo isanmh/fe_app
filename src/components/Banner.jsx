@@ -2,6 +2,7 @@ import React from "react";
 import "./Banner.css";
 import { useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [nama, setNama] = useState("Inixindo Jakarta");
