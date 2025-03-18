@@ -30,7 +30,13 @@ const ContactList = () => {
             return (
               <div key={contact.id} className="col-md-4 mb-3">
                 <Card>
-                  <Card.Img variant="top" src={`${Url}/${contact.image}`} />
+                  <Card.Img
+                    className="img-thumbnail"
+                    variant="top"
+                    width="100%"
+                    style={{ height: "300px" }}
+                    src={`${Url}/${contact.image}`}
+                  />
                   <Card.Body>
                     <Card.Title>{contact.name}</Card.Title>
                     <Card.Text>{contact.email}</Card.Text>
