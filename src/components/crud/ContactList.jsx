@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Api, Url } from "../../config/Api";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -13,15 +14,45 @@ const ContactList = () => {
 
   const getContacts = async () => {
     const res = await axios.get(Api);
-    console.log(res.data.data);
+    // console.log(res.data.data);
     setContacts(res.data.data);
+  };
+
+  // Delete Contact
+  const deleteContact = async (contactId) => {
+    try {
+      await Swal.fire({
+        title: "Apakah anda yakin?",
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          // untuk pemanggilan api delete
+          await axios.delete(`${Api}/${contactId}`);
+          getContacts();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Data berhasil dihapus.",
+            icon: "success",
+          });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="text-center">Contact List</h1>
-        <Link className="btn btn-outline-primary my-3">Add Contact</Link>
+        <Link to={"/create"} className="btn btn-outline-primary my-3">
+          Add Contact
+        </Link>
       </div>
       <hr />
       <div className="container mt-5 mb-5">
@@ -44,9 +75,12 @@ const ContactList = () => {
                   </Card.Body>
                   <div className="btn-group">
                     <Link className="btn btn-outline-primary btn-sm">Edit</Link>
-                    <Link className="btn btn-outline-danger btn-sm">
+                    <Button
+                      onClick={() => deleteContact(contact.id)}
+                      className="btn btn-outline-danger btn-sm"
+                    >
                       Delete
-                    </Link>
+                    </Button>
                   </div>
                 </Card>
               </div>

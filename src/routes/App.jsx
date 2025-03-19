@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Blog from "../pages/Blog";
 import Teams from "../pages/Teams";
 import Services from "../pages/Services";
+import Create from "../components/crud/Create";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/services" element={<Services />} />
+        {/* CRUD Routes */}
+        <Route path="/create" element={<Create />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
