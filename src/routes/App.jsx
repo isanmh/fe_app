@@ -18,6 +18,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         {/* CRUD Routes */}
         <Route path="/create" element={<Create />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
