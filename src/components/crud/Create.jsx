@@ -83,6 +83,15 @@ const Create = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
+                <div className="text-danger">
+                  {errors.length > 0 && (
+                    <div className="text-danger">
+                      {errors.map((error) => (
+                        <small>{error.path === "name" ? error.msg : ""} </small>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="form-group my-3">
                 <label>Email</label>
@@ -92,6 +101,13 @@ const Create = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.length > 0 && (
+                  <div className="text-danger">
+                    {errors.map((error) => (
+                      <small>{error.path === "email" ? error.msg : ""} </small>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="form-group my-3">
                 <label>Phone</label>
@@ -101,6 +117,13 @@ const Create = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
+                {errors.length > 0 && (
+                  <div className="text-danger">
+                    {errors.map((error) => (
+                      <small>{error.path === "phone" ? error.msg : ""} </small>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="form-group my-3">
                 <label>Image</label>
