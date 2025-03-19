@@ -1,18 +1,19 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Col, Container, Figure } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Api, Url } from "../../config/Api";
 import Swal from "sweetalert2";
 
-const Edit = () => {
+const EditRef = () => {
   const [preview, setPreview] = useState();
   const [previewName, setPreviewName] = useState("");
   const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,16 +24,14 @@ const Edit = () => {
 
   const getContact = async () => {
     const res = await axios.get(`${Api}/${id}`);
-    // console.log(res.data.data);
-    setName(res.data.data.name);
-    setEmail(res.data.data.email);
-    setPhone(res.data.data.phone);
+    nameRef.current.value = res.data.data.name;
+    emailRef.current.value = res.data.data.email;
+    phoneRef.current.value = res.data.data.phone;
     setPreview(`${Url}/${res.data.data.image}`);
     setPreviewName(res.data.data.image);
   };
 
   const loadImage = (e) => {
-    console.log(e.target.files[0]);
     const img = e.target.files[0];
     setImage(img);
     setPreview(URL.createObjectURL(img));
@@ -43,9 +42,9 @@ const Edit = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phone", phone);
+    formData.append("name", nameRef.current.value);
+    formData.append("email", emailRef.current.value);
+    formData.append("phone", phoneRef.current.value);
     try {
       await axios.put(`${Api}/${id}`, formData, {
         headers: {
@@ -77,17 +76,14 @@ const Edit = () => {
             <form onSubmit={updateContact}>
               <div className="form-group my-3">
                 <label>Full Name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+                <input className="form-control" type="text" ref={nameRef} />
                 <div className="text-danger">
                   {errors.length > 0 && (
                     <div className="text-danger">
                       {errors.map((error) => (
-                        <small>{error.path === "name" ? error.msg : ""} </small>
+                        <small key={error.path}>
+                          {error.path === "name" ? error.msg : ""}{" "}
+                        </small>
                       ))}
                     </div>
                   )}
@@ -95,32 +91,26 @@ const Edit = () => {
               </div>
               <div className="form-group my-3">
                 <label>Email</label>
-                <input
-                  className="form-control"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <input className="form-control" type="email" ref={emailRef} />
                 {errors.length > 0 && (
                   <div className="text-danger">
                     {errors.map((error) => (
-                      <small>{error.path === "email" ? error.msg : ""} </small>
+                      <small key={error.path}>
+                        {error.path === "email" ? error.msg : ""}{" "}
+                      </small>
                     ))}
                   </div>
                 )}
               </div>
               <div className="form-group my-3">
                 <label>Phone</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
+                <input className="form-control" type="text" ref={phoneRef} />
                 {errors.length > 0 && (
                   <div className="text-danger">
                     {errors.map((error) => (
-                      <small>{error.path === "phone" ? error.msg : ""} </small>
+                      <small key={error.path}>
+                        {error.path === "phone" ? error.msg : ""}{" "}
+                      </small>
                     ))}
                   </div>
                 )}
@@ -158,4 +148,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default EditRef;

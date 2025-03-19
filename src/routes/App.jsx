@@ -6,6 +6,9 @@ import Blog from "../pages/Blog";
 import Teams from "../pages/Teams";
 import Services from "../pages/Services";
 import Create from "../components/crud/Create";
+import Edit from "../components/crud/Edit";
+import CreateRef from "../components/crud/CreateRef";
+import EditRef from "../components/crud/EditRef";
 
 function App() {
   return (
@@ -18,6 +21,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         {/* CRUD Routes */}
         <Route path="/create" element={<Create />} />
+        <Route path="/edit/:id" element={<EditRef />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

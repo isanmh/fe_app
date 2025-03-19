@@ -40,6 +40,12 @@ https://reqres.in/
 
 https://reqres.in/api/users
 
-
+library ui :
+- react-bootstrap
+- bootstrap
+- daisyUI
+- flowBite
+- bulma
+- Chakra UI
 
 

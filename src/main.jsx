@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./routes/App";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import "bulma/css/bulma.min.css";
 import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(

@@ -74,7 +74,12 @@ const ContactList = () => {
                     <Card.Text>{contact.phone}</Card.Text>
                   </Card.Body>
                   <div className="btn-group">
-                    <Link className="btn btn-outline-primary btn-sm">Edit</Link>
+                    <Link
+                      to={`/edit/${contact.id}`}
+                      className="btn btn-outline-primary btn-sm"
+                    >
+                      Edit
+                    </Link>
                     <Button
                       onClick={() => deleteContact(contact.id)}
                       className="btn btn-outline-danger btn-sm"
